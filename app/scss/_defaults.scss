@@ -27,6 +27,19 @@ body {
   transition: all 300ms ease-out;
 }
 
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $light; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
 a {
   text-decoration: none;
   color: $dark;
@@ -47,6 +60,22 @@ input {
   font-size: 0.8rem;
 }
 
+.textArea {
+  position: relative;
+  p {
+    position: absolute;
+    font-size: 0.7rem !important;
+    font-weight: 100;
+
+    top: -1.5rem;
+    right: 0;
+    opacity: 0.5;
+  }
+  textarea {
+    width: 100%;
+  }
+}
+
 textarea {
   max-width: 300px;
   padding: 10px 20px;
@@ -56,6 +85,7 @@ textarea {
   background: none;
   font-size: 0.8rem;
   resize: none;
+  position: relative;
 }
 
 button {
@@ -235,6 +265,25 @@ select {
 
   a {
     color: $light;
+  }
+
+  .submit-popup {
+    .card {
+      background-color: $dark !important;
+      border: 1px solid $light !important;
+    }
+
+    .data-card {
+      background-color: black !important;
+      color: $light !important;
+    }
+  }
+
+  .success-popup {
+    .popup {
+      background-color: $dark !important;
+      border: 1px solid $light !important;
+    }
   }
 }
 

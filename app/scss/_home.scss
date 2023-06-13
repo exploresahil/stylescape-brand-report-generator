@@ -227,6 +227,36 @@
     }
   }
 
+  .success-popup {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 99;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+
+    .popup {
+      background-color: $light;
+      padding: 1.5rem 2rem;
+      border-radius: 10px;
+      border: 1px solid $dark;
+
+      h3 {
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
   form {
     width: 50%;
     position: relative;
@@ -236,6 +266,64 @@
     overflow: hidden;
 
     padding: 0 6%;
+
+    .submit-popup {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99;
+      inset: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .card {
+        width: 500px;
+        background-color: $light;
+        border-radius: 10px;
+        padding: 2em;
+        border: 1px solid $dark;
+
+        h4 {
+          margin: 0 0 0.5em 10px;
+        }
+
+        .data-card {
+          width: auto;
+          height: 300px;
+          background-color: $lightOff;
+          padding: 15px 20px;
+          border-radius: 10px;
+          overflow-y: scroll;
+          color: $dark;
+
+          h5 {
+            font-weight: 700;
+            margin-bottom: 5px;
+          }
+          p {
+            font-size: 0.8rem;
+            padding-bottom: 5px;
+            color: $blue;
+          }
+        }
+
+        .data-card::-webkit-scrollbar-thumb {
+          background-color: $darkBg !important;
+        }
+
+        .buttons {
+          margin-top: 1em;
+          display: flex;
+          gap: 0.5em;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
 
     .back-next-button {
       display: flex;

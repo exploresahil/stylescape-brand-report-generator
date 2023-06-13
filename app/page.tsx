@@ -3,8 +3,10 @@ import { useState } from "react";
 
 import SmartWatch from "@/components/SmartWatch";
 import LazyImage from "@/components/LazyImage";
+import LimitedTextArea from "@/components/LimitedTextArea";
 
-//* ----> gallery link : https://postimg.cc/gallery/BXgfykH
+// ----> gallery link : https://postimg.cc/gallery/BXgfykH
+
 const bg_one = "https://i.postimg.cc/xCYhQ9Jb/bg-one.webp";
 const bg_two = "https://i.postimg.cc/rw0vCn2z/bg-two.webp";
 const bg_three = "https://i.postimg.cc/bw746xqg/bg-three.webp";
@@ -44,13 +46,9 @@ export default function Home() {
 
   const detailsClassName = `details ${isShown ? "details-shown" : ""}`;
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-  };
-
   const [fdata, setFdata] = useState<{
     name: string;
-    Description: string;
+    description: string;
     voice: string;
     tone: string;
     look: string;
@@ -68,7 +66,7 @@ export default function Home() {
     serious_fun: string;
   }>({
     name: "",
-    Description: "",
+    description: "",
     voice: "",
     tone: "",
     look: "",
@@ -86,6 +84,8 @@ export default function Home() {
     serious_fun: "50",
   });
 
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+
   const checkboxes = [
     { id: "1", label: "Rustic" },
     { id: "2", label: "Vibrant" },
@@ -97,8 +97,6 @@ export default function Home() {
     { id: "8", label: "Comforting" },
     { id: "9", label: "Glamourous" },
   ];
-
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
   const boldPercentage = 100 - parseInt(fdata.bold_light, 10);
   const lightPercentage = parseInt(fdata.bold_light, 10);
@@ -113,17 +111,76 @@ export default function Home() {
   const seriousPercentage = 100 - parseInt(fdata.serious_fun, 10);
   const funPercentage = parseInt(fdata.serious_fun, 10);
 
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmitForm = async (e: any) => {
+    const url =
+      "https://script.google.com/macros/s/AKfycbwTqc-0hDeXLguv9t23QnRXoKkvh3eXbNyap8qXcuPted0vmNR6RbIxOunficcONY5-tw/exec";
+
+    const formData = new FormData();
+    formData.append("name", fdata.name);
+    formData.append("description", fdata.description);
+    formData.append("voice", fdata.voice);
+    formData.append("tone", fdata.tone);
+    formData.append("look", fdata.look);
+    formData.append("feel", fdata.feel);
+    formData.append("brand_attributes", fdata.brand_attributes.join(", "));
+    formData.append("audience_description", fdata.audience_description);
+    formData.append("brand_demographics_male", fdata.brand_demographics_male);
+    formData.append(
+      "brand_demographics_female",
+      fdata.brand_demographics_female
+    );
+    formData.append("the_dominance", fdata.the_dominance);
+    formData.append("bold_light", fdata.bold_light);
+    formData.append("mainstream_fringe", fdata.mainstream_fringe);
+    formData.append("scientific_cosmic", fdata.scientific_cosmic);
+    formData.append("affordable_luxurious", fdata.affordable_luxurious);
+    formData.append("accessible_exclusive", fdata.accessible_exclusive);
+    formData.append("serious_fun", fdata.serious_fun);
+
+    e.preventDefault();
+
+    setIsSuccess(true); // Set success state to true
+    setIsPopupOpen(false);
+    setTimeout(() => {
+      setIsSuccess(false); // Close the popup after 3 seconds
+      e.target.submit(); // Submit the form after 3 seconds
+    }, 2000);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("Form data submitted successfully!");
+
+        // Optionally, perform any additional actions after successful submission
+      } else {
+        console.log("Form submission failed.");
+      }
+    } catch (error) {
+      console.log("An error occurred during form submission:", error);
+    }
+  };
+
+  //console.log(fdata);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleConfirmBack = () => {
+    setIsPopupOpen(false);
+  };
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
+
   return (
     <div>
       <SmartWatch />
-      <div className="change-page">
-        <label>Page: {s}</label>
-        <br />
-        <button onClick={handleBackClick}>Back</button>
-        <button onClick={handleNextClick}>Next</button>
-      </div>
       <div className="form-stylescape">
-        <p className="page-no">Form Section: {s}/6</p>
         <div
           className="left-container"
           style={{
@@ -236,7 +293,10 @@ export default function Home() {
             <p>Describe the brand in the range of the following attributes.</p>
           </div>
         </div>
-        <form action="#" onSubmit={handleSubmit}>
+
+        {/* -------------------------------------------------------------------------------------> Form */}
+
+        <form action="" id="myForm" onSubmit={handleSubmitForm}>
           <div
             style={{ display: s == 1 ? "flex" : "none" }}
             className="form-scetion-brand"
@@ -249,20 +309,21 @@ export default function Home() {
                 setFdata((data) => ({ ...data, name: e.target.value }))
               }
               type="text"
+              name="name"
               placeholder="Enter Brand Name"
             />
             <label htmlFor="">Brand Description:</label>
-            <textarea
-              value={fdata.Description}
-              rows={textareaRows}
-              onChange={(e) =>
-                setFdata((data) => ({ ...data, Description: e.target.value }))
+            <LimitedTextArea
+              value={fdata.description}
+              onChange={(value: string) =>
+                setFdata((data) => ({ ...data, description: value }))
               }
+              name="description"
               placeholder="Enter Brand Description"
             />
             <button
               type="button"
-              disabled={fdata.name == "" || fdata.Description == ""}
+              disabled={fdata.name == "" || fdata.description == ""}
               onClick={() => setS(2)}
             >
               Next
@@ -277,42 +338,46 @@ export default function Home() {
             <div className="textarea-container">
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Voice:</label>
-                <textarea
+                <LimitedTextArea
                   placeholder="in terms of voice"
-                  rows={textareaRows}
-                  onChange={(e) =>
-                    setFdata((data) => ({ ...data, voice: e.target.value }))
+                  name="voice"
+                  onChange={(value: string) =>
+                    setFdata((data) => ({ ...data, voice: value }))
                   }
+                  value={fdata.voice}
                 />
               </div>
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Tone:</label>
-                <textarea
+                <LimitedTextArea
+                  name="tone"
                   placeholder="in terms of tone"
-                  rows={textareaRows}
-                  onChange={(e) =>
-                    setFdata((data) => ({ ...data, tone: e.target.value }))
+                  onChange={(value: string) =>
+                    setFdata((data) => ({ ...data, tone: value }))
                   }
+                  value={fdata.tone}
                 />
               </div>
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Look:</label>
-                <textarea
+                <LimitedTextArea
+                  name="look"
                   placeholder="in terms of look"
-                  rows={textareaRows}
-                  onChange={(e) =>
-                    setFdata((data) => ({ ...data, look: e.target.value }))
+                  onChange={(value: string) =>
+                    setFdata((data) => ({ ...data, look: value }))
                   }
+                  value={fdata.look}
                 />
               </div>
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Feel:</label>
-                <textarea
+                <LimitedTextArea
                   placeholder="in terms of feel"
-                  rows={textareaRows}
-                  onChange={(e) =>
-                    setFdata((data) => ({ ...data, feel: e.target.value }))
+                  name="feel"
+                  onChange={(value: string) =>
+                    setFdata((data) => ({ ...data, feel: value }))
                   }
+                  value={fdata.feel}
                 />
               </div>
             </div>
@@ -351,7 +416,7 @@ export default function Home() {
                   </label>
                   <input
                     type="checkbox"
-                    name=""
+                    name="brandAttributes"
                     id={id}
                     onClick={(e: any) => {
                       const newCheckedItems = {
@@ -401,15 +466,16 @@ export default function Home() {
               hear and see, what they say and do, and what their pains, tasks,
               and gains are:
             </label>
-            <textarea
+            <LimitedTextArea
               placeholder="Enter Audience Description"
-              rows={textareaRows}
-              onChange={(e) =>
+              name="audience_description"
+              onChange={(value: string) =>
                 setFdata((data) => ({
                   ...data,
-                  audience_description: e.target.value,
+                  audience_description: value,
                 }))
               }
+              value={fdata.audience_description}
             />
             <div className="back-next-button">
               <button type="button" onClick={() => setS(3)}>
@@ -433,36 +499,38 @@ export default function Home() {
                 <label htmlFor="">
                   Describe the brand if the brand is a human being (Male):
                 </label>
-                <textarea
+                <LimitedTextArea
                   placeholder="(Male)"
-                  rows={textareaRows}
-                  onChange={(e) =>
+                  name="brand_demographics_male"
+                  onChange={(value: string) =>
                     setFdata((data) => ({
                       ...data,
-                      brand_demographics_male: e.target.value,
+                      brand_demographics_male: value,
                     }))
                   }
+                  value={fdata.brand_demographics_male}
                 />
               </div>
               <div className="female">
                 <label htmlFor="">
                   Describe the brand if the brand is a human being (Female):
                 </label>
-                <textarea
+                <LimitedTextArea
                   placeholder="(Female)"
-                  rows={4}
-                  onChange={(e) =>
+                  name="brand_demographics_female"
+                  onChange={(value: string) =>
                     setFdata((data) => ({
                       ...data,
-                      brand_demographics_female: e.target.value,
+                      brand_demographics_female: value,
                     }))
                   }
+                  value={fdata.brand_demographics_female}
                 />
               </div>
             </div>
             <label>Specify the Dominance:</label>
             <select
-              name=""
+              name="the_dominance"
               id=""
               onChange={(e) =>
                 setFdata((data) => ({
@@ -505,12 +573,12 @@ export default function Home() {
                     Bold: <span>{boldPercentage}%</span>
                   </label>
                   <label htmlFor="">
-                    Pale/Light: <span>{lightPercentage}%</span>
+                    Light: <span>{lightPercentage}%</span>
                   </label>
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="bold_light"
                   id=""
                   min={5}
                   max={95}
@@ -533,7 +601,7 @@ export default function Home() {
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="mainstream_fringe"
                   id=""
                   min={5}
                   max={95}
@@ -558,7 +626,7 @@ export default function Home() {
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="scientific_cosmic"
                   id=""
                   min={5}
                   max={95}
@@ -583,7 +651,7 @@ export default function Home() {
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="affordable_luxurious"
                   id=""
                   min={5}
                   max={95}
@@ -608,7 +676,7 @@ export default function Home() {
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="accessible_exclusive"
                   id=""
                   min={5}
                   max={95}
@@ -633,7 +701,7 @@ export default function Home() {
                 </div>
                 <input
                   type="range"
-                  name=""
+                  name="serious_fun"
                   id=""
                   min={5}
                   max={95}
@@ -674,12 +742,74 @@ export default function Home() {
               <button type="button" onClick={() => setS(5)}>
                 Back
               </button>
-              <button disabled={s !== 6} type="submit" onClick={() => setS(1)}>
+              <button
+                disabled={s !== 6}
+                type="button"
+                onClick={handleOpenPopup}
+              >
                 Submit
               </button>
             </div>
           </div>
+          {isPopupOpen && (
+            <div className="submit-popup">
+              <div className="card">
+                <h4>Please confirm your submission</h4>
+                <div className="data-card">
+                  <h5>Brand Name:</h5>
+                  <p>{fdata.name}</p>
+                  <h5>Brand Description:</h5>
+                  <p>{fdata.description}</p>
+                  <h5>Brand Voice:</h5>
+                  <p>{fdata.voice}</p>
+                  <h5>Brand Tone:</h5>
+                  <p>{fdata.tone}</p>
+                  <h5>Brand Look:</h5>
+                  <p>{fdata.look}</p>
+                  <h5>Brand Feel:</h5>
+                  <p>{fdata.feel}</p>
+                  <h5>Brand Attributes:</h5>
+                  <p>{fdata.brand_attributes.join(", ")}</p>
+                  <h5>Audiance Description:</h5>
+                  <p>{fdata.audience_description}</p>
+                  <h5>Brand Demographics (Male):</h5>
+                  <p>{fdata.brand_demographics_male}</p>
+                  <h5>Brand Demographics (Female):</h5>
+                  <p>{fdata.brand_demographics_female}</p>
+                  <h5>Brand Demographics Dominance:</h5>
+                  <p>{fdata.the_dominance}</p>
+                  <h5>Brand Demographics Findings:</h5>
+                  <p>Bold: {boldPercentage}%</p>
+                  <p>Light: {lightPercentage} %</p>
+                  <p>Common: {mainstreamPercentage}%</p>
+                  <p>Dynamic: {fringePercentage}%</p>
+                  <p>Logical:{scientificPercentage}%</p>
+                  <p>Spiritual:{cosmicPercentage}%</p>
+                  <p>Affordable: {affordablePercentage}%</p>
+                  <p>Luxurious: {luxuriousPercentage}%</p>
+                  <p>Accessible: {accessiblePercentage}%</p>
+                  <p>Exclusive: {exclusivePercentage}%</p>
+                  <p>Serious: {seriousPercentage}%</p>
+                  <p>Fun: {funPercentage}%</p>
+                </div>
+                <div className="buttons">
+                  <button type="button" onClick={handleConfirmBack}>
+                    Back
+                  </button>
+                  <button type="submit">Confirm</button>
+                </div>
+              </div>
+            </div>
+          )}
         </form>
+        {isSuccess && (
+          <div className="success-popup">
+            <div className="popup">
+              <h3>Input Submited Successfully!</h3>
+              <p>Please wait few hours for our response</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
