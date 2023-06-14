@@ -250,7 +250,7 @@ export default function Home() {
               <h3 style={{ fontWeight: "700" }}>What is Voice?</h3>
               <p style={{ opacity: "0.75" }}>
                 Voice of the brand is the brands statement. What the brand says
-                out loud about who they ate.
+                out loud about who they are.
               </p>
               <h3 style={{ fontWeight: "700" }}>What is Tone?</h3>
               <p style={{ opacity: "0.75" }}>
