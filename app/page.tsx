@@ -260,12 +260,12 @@ export default function Home() {
               <h3 style={{ fontWeight: "700" }}>What is Look?</h3>
               <p style={{ margin: "0 !important", opacity: "0.75" }}>
                 Look is something the audience of the brand believes about the
-                Brand.
+                brand.
               </p>
               <h3 style={{ fontWeight: "700" }}>What is Feel?</h3>
               <p style={{ opacity: "0.75" }}>
                 Feel is something the audience of the brand talk about the
-                Brand.
+                brand.
               </p>
             </div>
 
