@@ -22,7 +22,7 @@ const bg_five20px = "https://i.postimg.cc/4dSdM2yq/bg-five20px.webp";
 const bg_six20px = "https://i.postimg.cc/y6DXNwmJ/bg-six20px.webp";
 
 export default function Home() {
-  const [s, setS] = useState(1);
+  const [s, setS] = useState(2);
 
   const [isShown, setIsShown] = useState(false);
 
@@ -238,7 +238,40 @@ export default function Home() {
           <LazyImage url={bg_two} smallUrl={bg_two20px} />
           <div className="stylescape-text">
             <h2>Mind Walking</h2>
-            <p>Imagine yourself somewhere amazing, exactly 1 year from now</p>
+            <p>• Imagine yourself somewhere amazing.</p>
+            <p>
+              • Imagine that the Brand is successfully running and has achieved
+              the desired goals.
+            </p>
+            <p style={{ opacity: "0.5" }}>
+              And then answer the following questions
+            </p>
+            <div className={detailsClassName}>
+              <h3 style={{ fontWeight: "700" }}>What is Voice?</h3>
+              <p style={{ opacity: "0.75" }}>
+                Voice of the brand is the brands statement. What the brand says
+                out loud about who they ate.
+              </p>
+              <h3 style={{ fontWeight: "700" }}>What is Tone?</h3>
+              <p style={{ opacity: "0.75" }}>
+                Tone is something that the audiance of the brand understand from
+                the Voice of the brand. Both can be different.
+              </p>
+              <h3 style={{ fontWeight: "700" }}>What is Look?</h3>
+              <p style={{ margin: "0 !important", opacity: "0.75" }}>
+                Look is something the audience of the brand believes about the
+                Brand.
+              </p>
+              <h3 style={{ fontWeight: "700" }}>What is Feel?</h3>
+              <p style={{ opacity: "0.75" }}>
+                Feel is something the audience of the brand talk about the
+                Brand.
+              </p>
+            </div>
+
+            <button onClick={toggleShow}>
+              {isShown ? "Show Less" : "Learn More"}
+            </button>
           </div>
         </div>
         <div
