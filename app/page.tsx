@@ -380,7 +380,8 @@ export default function Home() {
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Voice:</label>
                 <LimitedTextArea
-                  placeholder="in terms of voice"
+                  placeholder="Voice of the brand is the brands statement. What the brand says
+                out loud about who they are."
                   name="voice"
                   onChange={(value: string) =>
                     setFdata((data) => ({ ...data, voice: value }))
@@ -392,7 +393,8 @@ export default function Home() {
                 <label htmlFor="">Describe in terms of Tone:</label>
                 <LimitedTextArea
                   name="tone"
-                  placeholder="in terms of tone"
+                  placeholder="Tone is something that the audiance of the brand understand from
+                the Voice of the brand. Both can be different."
                   onChange={(value: string) =>
                     setFdata((data) => ({ ...data, tone: value }))
                   }
@@ -403,7 +405,8 @@ export default function Home() {
                 <label htmlFor="">Describe in terms of Look:</label>
                 <LimitedTextArea
                   name="look"
-                  placeholder="in terms of look"
+                  placeholder="Look is something the audience of the brand believes about the
+                brand."
                   onChange={(value: string) =>
                     setFdata((data) => ({ ...data, look: value }))
                   }
@@ -413,7 +416,8 @@ export default function Home() {
               <div className="textarea">
                 <label htmlFor="">Describe in terms of Feel:</label>
                 <LimitedTextArea
-                  placeholder="in terms of feel"
+                  placeholder="Feel is something the audience of the brand talk about the
+                brand."
                   name="feel"
                   onChange={(value: string) =>
                     setFdata((data) => ({ ...data, feel: value }))
