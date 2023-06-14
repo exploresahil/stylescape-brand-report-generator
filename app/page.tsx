@@ -22,7 +22,7 @@ const bg_five20px = "https://i.postimg.cc/4dSdM2yq/bg-five20px.webp";
 const bg_six20px = "https://i.postimg.cc/y6DXNwmJ/bg-six20px.webp";
 
 export default function Home() {
-  const [s, setS] = useState(2);
+  const [s, setS] = useState(1);
 
   const [isShown, setIsShown] = useState(false);
 
