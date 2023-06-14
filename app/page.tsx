@@ -21,22 +21,8 @@ const bg_four20px = "https://i.postimg.cc/xTHvvMFn/bg-four20px.webp";
 const bg_five20px = "https://i.postimg.cc/4dSdM2yq/bg-five20px.webp";
 const bg_six20px = "https://i.postimg.cc/y6DXNwmJ/bg-six20px.webp";
 
-const textareaRows = 4;
-
 export default function Home() {
   const [s, setS] = useState(1);
-
-  const handleBackClick = () => {
-    if (s > 1) {
-      setS((prevS) => prevS - 1);
-    }
-  };
-
-  const handleNextClick = () => {
-    if (s < 6) {
-      setS((prevS) => prevS + 1);
-    }
-  };
 
   const [isShown, setIsShown] = useState(false);
 
@@ -115,7 +101,7 @@ export default function Home() {
 
   const handleSubmitForm = async (e: any) => {
     const url =
-      "https://script.google.com/macros/s/AKfycbwTqc-0hDeXLguv9t23QnRXoKkvh3eXbNyap8qXcuPted0vmNR6RbIxOunficcONY5-tw/exec";
+      "https://script.google.com/macros/s/AKfycbyUyehgWwJC44dtGBUp0XO-rBkKil4bXKOW0d9LCDPPcR4YTFuftQPg3EpTnYQtUiA-QA/exec";
 
     const formData = new FormData();
     formData.append("name", fdata.name);
@@ -132,12 +118,34 @@ export default function Home() {
       fdata.brand_demographics_female
     );
     formData.append("the_dominance", fdata.the_dominance);
-    formData.append("bold_light", fdata.bold_light);
-    formData.append("mainstream_fringe", fdata.mainstream_fringe);
-    formData.append("scientific_cosmic", fdata.scientific_cosmic);
-    formData.append("affordable_luxurious", fdata.affordable_luxurious);
-    formData.append("accessible_exclusive", fdata.accessible_exclusive);
-    formData.append("serious_fun", fdata.serious_fun);
+
+    // Calculate the percentage values
+    const boldPercentage = 100 - parseInt(fdata.bold_light, 10);
+    const lightPercentage = parseInt(fdata.bold_light, 10);
+    const mainstreamPercentage = 100 - parseInt(fdata.mainstream_fringe, 10);
+    const fringePercentage = parseInt(fdata.mainstream_fringe, 10);
+    const scientificPercentage = 100 - parseInt(fdata.scientific_cosmic, 10);
+    const cosmicPercentage = parseInt(fdata.scientific_cosmic, 10);
+    const affordablePercentage = 100 - parseInt(fdata.affordable_luxurious, 10);
+    const luxuriousPercentage = parseInt(fdata.affordable_luxurious, 10);
+    const accessiblePercentage = 100 - parseInt(fdata.accessible_exclusive, 10);
+    const exclusivePercentage = parseInt(fdata.accessible_exclusive, 10);
+    const seriousPercentage = 100 - parseInt(fdata.serious_fun, 10);
+    const funPercentage = parseInt(fdata.serious_fun, 10);
+
+    // Add the percentage values to the form data
+    formData.append("boldPercentage", boldPercentage.toString());
+    formData.append("lightPercentage", lightPercentage.toString());
+    formData.append("mainstreamPercentage", mainstreamPercentage.toString());
+    formData.append("fringePercentage", fringePercentage.toString());
+    formData.append("scientificPercentage", scientificPercentage.toString());
+    formData.append("cosmicPercentage", cosmicPercentage.toString());
+    formData.append("affordablePercentage", affordablePercentage.toString());
+    formData.append("luxuriousPercentage", luxuriousPercentage.toString());
+    formData.append("accessiblePercentage", accessiblePercentage.toString());
+    formData.append("exclusivePercentage", exclusivePercentage.toString());
+    formData.append("seriousPercentage", seriousPercentage.toString());
+    formData.append("funPercentage", funPercentage.toString());
 
     e.preventDefault();
 

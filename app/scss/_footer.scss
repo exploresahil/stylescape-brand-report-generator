@@ -8,8 +8,26 @@ footer {
   z-index: 9999;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  color: yellow;
+  align-items: center;
+  justify-content: space-between;
+  //background-color: rgb(207, 207, 207);
+
+  p {
+    font-size: 0.8rem;
+    transition: all 400ms ease-out;
+  }
+
+  .logos {
+    .circl-logos {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      .circl-logo {
+        height: 14px;
+        fill: $green;
+      }
+    }
+  }
 }

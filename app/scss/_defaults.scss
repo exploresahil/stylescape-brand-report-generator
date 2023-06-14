@@ -253,6 +253,18 @@ select {
     }
   }
 
+  footer {
+    //background-color: black;
+    .logos {
+      .circl-logos {
+        color: $light;
+        .circl-logo {
+          fill: $green;
+        }
+      }
+    }
+  }
+
   .smart-watch {
     .logos {
       .circl-logos {

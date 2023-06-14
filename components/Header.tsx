@@ -24,7 +24,7 @@ const Header = ({ theme, setTheme }: HeaderProps) => {
       <div className="logos">
         <Link href="/" className="circl-logos">
           <Tcssidebyside name="circl-logo" />
-          <p>the circl studio | #stylescape</p>
+          <p> | #stylescape</p>
         </Link>
       </div>
       <button className="theme-button" onClick={handleThemeToggle}>

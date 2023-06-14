@@ -74,6 +74,8 @@
   display: flex;
   transition: all 400ms ease-out;
 
+  display: flex;
+
   .page-no {
     position: absolute;
     bottom: 45px;
@@ -570,7 +572,7 @@
     form {
       width: 100vw;
 
-      min-height: calc(100vh - 100px - 240px);
+      min-height: calc(100vh - 100px - 180px);
       position: relative;
       height: auto;
 
@@ -602,8 +604,8 @@
 
     form {
       width: 100vw;
-      height: auto;
-      height: calc(100vh - 100px - 400px);
+
+      height: calc(100vh - 100px - 200px);
       position: relative;
 
       padding: 20px 0;
@@ -658,7 +660,7 @@
 
     form {
       width: 100vw;
-      min-height: calc(100vh - 100px - 250px);
+      min-height: calc(100vh - 100px - 200px);
       height: auto;
 
       padding: 40px 6vw;
@@ -716,6 +718,65 @@
               width: 1.5em;
               height: 1.5em;
               border-radius: 100px;
+            }
+          }
+        }
+      }
+
+      .submit-popup {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99;
+        inset: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .card {
+          max-width: 500px;
+          background-color: $light;
+          border-radius: 10px;
+          padding: 1em;
+          border: 1px solid $dark;
+          margin: 0 6vw;
+
+          h4 {
+            margin: 0 0 0.5em 10px;
+          }
+
+          .data-card {
+            max-width: 300px;
+            height: 300px;
+            background-color: $lightOff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            overflow-y: scroll;
+            color: $dark;
+
+            h5 {
+              font-weight: 700;
+              margin-bottom: 5px;
+            }
+            p {
+              font-size: 0.8rem;
+              padding-bottom: 5px;
+              color: $blue;
+            }
+          }
+
+          .data-card::-webkit-scrollbar-thumb {
+            background-color: $darkBg !important;
+          }
+
+          .buttons {
+            margin-top: 1em;
+            display: flex;
+            gap: 0.5em;
+
+            button {
+              width: 100%;
             }
           }
         }
